@@ -52,3 +52,27 @@ func TestChurchAddAndGetEventDates(t *testing.T) {
         }
     }
 }
+
+func TestChurchMission(t *testing.T) {
+    testdata := []string{
+        "Calle normal, 123",
+        "C/ Abrev. 248",
+        "Avda. åÇasdfA^SDFafpqfá fadsmf oqfqm fom fmadkfm , 8749 2,4234",
+    }
+    c := NewChurch()
+
+    for _, v := range testdata {
+        c.Address = v
+        if c.Address != v {
+            t.Fatalf("Not equal, expected %s, received %s", v, c.Address)
+        }
+    }
+}
+
+func TestDefaultChurch(t *testing.T) {
+    c := GetDefaultChurch()
+
+    if c.Name != "Vinya Castelldefels" {
+        t.Fatalf("Expected Vinya Castelldefels, got %s", c.Name )
+    }
+}
