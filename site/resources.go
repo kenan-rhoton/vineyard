@@ -5,5 +5,5 @@ import (
 )
 
 func ResourcesSetup() {
-    http.Handle("/public/",http.StripPrefix("/public/",http.FileServer(http.Dir("public"))))
+    http.Handle("/public/",http.StripPrefix("/public/",http.FileServer(http.Dir("site/public"))))
 }
