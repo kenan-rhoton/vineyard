@@ -1,11 +1,14 @@
 package models
 
 import (
+    "fmt"
     "gopkg.in/mgo.v2/bson"
 )
 
 type Church struct {
+    Id bson.ObjectId
     Name string
+    Handle string
     Address string
     Mission string
     Default bool
@@ -36,15 +39,15 @@ func (c *Church) Save() {
     TheDB.InsertInto("Churches", c)
 }
 
-func GetChurch(name String) *Church {
+func GetChurch(name string) *Church {
     c := NewChurch()
     TheDB.GetFrom("Churches", bson.M{"name": name}, c)
     return c
 }
 
-func GetChurches(name String) []Church {
+func GetChurches() []Church {
     var results []Church
-    TheDB.GetAll("Churches", results)
+    TheDB.GetAll("Churches", &results)
     return results
 }
 

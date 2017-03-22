@@ -7,6 +7,10 @@ body {
     height: auto;
 }
 
+.hidden {
+    display: none;
+}
+
 /*
 Add transition to containers so they can push in and out.
 */
