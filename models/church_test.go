@@ -37,21 +37,21 @@ func TestChurchAddress(t *testing.T) {
     }
 }
 
-func TestChurchAddAndGetEventDates(t *testing.T) {
-    testdata := [][]string{
-        []string{"20-02-2018", "Celebración"},
-        []string{"30-04-2016", "Casal de Joves"},
-        []string{"12-08-2030", "BATMANAAAAANANANANANANANNNAN NANANAANNAAN NAN"},
-    }
-    c := NewChurch()
+//func TestChurchAddAndGetEventDates(t *testing.T) {
+    //testdata := [][]string{
+        //[]string{"20-02-2018", "Celebración"},
+        //[]string{"30-04-2016", "Casal de Joves"},
+        //[]string{"12-08-2030", "BATMANAAAAANANANANANANANNNAN NANANAANNAAN NAN"},
+    //}
+    //c := NewChurch()
 
-    for _, v := range testdata {
-        c.AddEvent(v[0], v[1])
-        if el := c.GetEvents(); !el.Contains(v) {
-            t.Fatalf("Expected event %s on %s to have been saved", v[1], v[0] )
-        }
-    }
-}
+    //for _, v := range testdata {
+        //c.AddEvent(v[0], v[1])
+        //if el := c.GetEvents(); !el.Contains(v) {
+            //t.Fatalf("Expected event %s on %s to have been saved", v[1], v[0] )
+        //}
+    //}
+//}
 
 func TestChurchMission(t *testing.T) {
     testdata := []string{
@@ -62,8 +62,8 @@ func TestChurchMission(t *testing.T) {
     c := NewChurch()
 
     for _, v := range testdata {
-        c.Address = v
-        if c.Address != v {
+        c.Mission = v
+        if c.Mission != v {
             t.Fatalf("Not equal, expected %s, received %s", v, c.Address)
         }
     }
