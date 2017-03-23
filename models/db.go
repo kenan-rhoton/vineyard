@@ -28,6 +28,12 @@ func (db *DB) InsertInto(table string, object interface{}) error {
     return err
 }
 
+func (db *DB) Update(table string, query bson.M, object interface{}) error {
+    c := db.conn.DB("vineyard").C(table)
+    err := c.Update(query, object)
+    return err
+}
+
 func (db *DB) GetFrom(table string, query bson.M, result interface{}) (error){
     c := db.conn.DB("vineyard").C(table)
     err := c.Find(query).One(result)

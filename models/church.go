@@ -1,18 +1,17 @@
 package models
 
 import (
-    "fmt"
     "gopkg.in/mgo.v2/bson"
+    "net/url"
+    "fmt"
 )
 
 type Church struct {
-    Id bson.ObjectId
     Name string
     Handle string
     Address string
     Mission string
     Default bool
-    //events *EventList
 }
 
 var TheDB, _ = InitDB("mongo")
@@ -27,16 +26,39 @@ func GetDefaultChurch() *Church {
     return c
 }
 
-//func (c *Church) AddEvent(date, location string) {
-    //c.events.AddEvent([]string{date,location})
-//}
+func SaveChurch(form url.Values, _ string) error {
+    c := &Church{}
+    err := LoadModel(c, form)
+    if err != nil {
+        return err
+    }
+    err = c.Validate()
+    if err != nil {
+        return err
+    }
+    return c.Save()
+}
 
-//func (c *Church) GetEvents() *EventList {
-    //return c.events
-//}
+func UpdateChurch(form url.Values, which string) error {
+    c := NewChurch()
+    LoadModel(c, form)
+    return c.Update(which)
+}
 
-func (c *Church) Save() {
-    TheDB.InsertInto("Churches", c)
+func (c *Church) Save() error {
+    return TheDB.InsertInto("Churches", c)
+}
+
+func (c *Church) Validate() error {
+    switch {
+    case c.Handle == "":
+        return fmt.Errorf("Empty Handle")
+    }
+    return nil
+}
+
+func (c *Church) Update(handle string) error {
+    return TheDB.Update("Churches", bson.M{"handle": handle}, c)
 }
 
 func GetChurch(name string) *Church {
@@ -51,7 +73,11 @@ func GetChurches() []Church {
     return results
 }
 
+func DeleteChurch(handle string) error {
+    return TheDB.DeleteFrom("Churches", bson.M{"handle": handle})
+}
+
 func (c *Church) Delete() {
-    TheDB.DeleteFrom("Church", bson.M{"name": c.Name})
+    TheDB.DeleteFrom("Churches", bson.M{"handle": c.Handle})
 }
 

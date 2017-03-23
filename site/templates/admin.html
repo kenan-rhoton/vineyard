@@ -45,55 +45,56 @@
                 </div>
 
                 <div class="content">
-                    <h2 class="content-subhead">Les Vinyes</h2>
+                    <h2 class="content-subhead">Lista de Iglesias</h2>
 
                     {{range .Churches}}
-                    <form class="pure-form pure-form-stacked" action="/admin/updateChurch/{{.Id}}">
+                    <form id="form-{{.Handle}}" name="form" class="pure-form pure-form-stacked" action="/admin/church/update/{{.Handle}}" method="post">
                         <fieldset>
                             <legend>{{.Name}}</legend>
 
-                            <label for="name-{{.Id}}">Nombre</label>
-                            <input class="pure-input-1" id="name-{{.Id}}" type="text" placeholder="{{.Name}}">
+                            <label for="name-{{.Handle}}">Nombre</label>
+                            <input class="pure-input-1" id="name-{{.Handle}}" name="name" type="text" value="{{.Name}}">
 
-                            <label for="handle-{{.Id}}">Etiqueta</label>
-                            <input class="pure-input-1" id="handle-{{.Id}}" type="text" placeholder="{{.Handle}}">
+                            <label for="handle-{{.Handle}}">Etiqueta</label>
+                            <input class="pure-input-1" id="handle-{{.Handle}}" name="handle" type="text" value="{{.Handle}}">
 
-                            <label for="address-{{.Id}}">Dirección</label>
-                            <input class="pure-input-1" id="address-{{.Id}}" type="text" placeholder="{{.Address}}">
+                            <label for="address-{{.Handle}}">Dirección</label>
+                            <input class="pure-input-1" id="address-{{.Handle}}" name="address" type="text" value="{{.Address}}">
 
-                            <label for="mission-{{.Id}}">Declaración de Misión</label>
-                            <input class="pure-input-1" id="mission-{{.Id}}" type="text" placeholder="{{.Mission}}">
+                            <label for="mission-{{.Handle}}">Declaración de Misión</label>
+                            <input class="pure-input-1" id="mission-{{.Handle}}" name="mission" type="text" value="{{.Mission}}">
 
-                            <label for="default-{{.Id}}" class="pure-checkbox">
-                                <input id="default-{{.Id}}" type="checkbox" value="{{.Default}}">
+                            <label for="default-{{.Handle}}" class="pure-checkbox">
+                                <input id="default-{{.Handle}}" name="default" type="checkbox" value="true" {{if .Default}}checked{{end}}>
                                 Iglesia por defecto (¡Sólo puede haber una!)
                             </label>
 
-                            <button type="submit" class="pure-button pure-button-primary">Guardar</button>
+                            <button type="submit" class="pure-input-1-4 pure-button pure-button-primary">Guardar</button>
+                            <a class="pure-input-1-4 pure-button pure-button-primary" href="/admin/church/delete/{{.Handle}}">Delete</a>
                         </fieldset>
                     </form>
                     {{end}}
 
                     <a id="NewChurchButton" class="pure-button pure-button-primary" onclick="NewChurch()">Nueva Iglesia</a>
 
-                    <form id="NewChurchForm" class="hidden pure-form pure-form-stacked" action="/admin/createChurch/">
+                    <form id="NewChurchForm" class="hidden pure-form pure-form-stacked" action="/admin/church/new/" method="post" enctype="application/x-www-form-urlencoded">
                         <fieldset>
                             <legend>Nueva Iglesia</legend>
 
                             <label for="name">Nombre</label>
-                            <input class="pure-input-1" id="name" type="text" placeholder="La Vinya Santiago de Compostela">
+                            <input class="pure-input-1" id="name" name="name" type="text" placeholder="La Vinya Santiago de Compostela">
 
                             <label for="handle">Etiqueta</label>
-                            <input class="pure-input-1" id="handle" type="text" placeholder="compostela">
+                            <input class="pure-input-1" id="handle" name="handle" type="text" placeholder="compostela">
 
                             <label for="address">Dirección</label>
-                            <input class="pure-input-1" id="address" type="text" placeholder="Avda Inventada 123">
+                            <input class="pure-input-1" id="address" name="address" type="text" placeholder="Avda Inventada 123">
 
                             <label for="mission">Declaración de Misión</label>
-                            <input class="pure-input-1" id="mission" type="text" placeholder="Locos por Jesús! Siempre buscando llevar su amor a todas partes.">
+                            <input class="pure-input-1" id="mission" name="mission" type="text" placeholder="Locos por Jesús! Siempre buscando llevar su amor a todas partes.">
 
                             <label for="default" class="pure-checkbox">
-                                <input id="default" type="checkbox" value="">
+                                <input id="default" type="checkbox" name="default" value="true">
                                 Iglesia por defecto (¡Sólo puede haber una!)
                             </label>
 

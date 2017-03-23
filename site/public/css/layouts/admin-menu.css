@@ -11,6 +11,10 @@ body {
     display: none;
 }
 
+.button-secondary {
+    background: rgb(66, 184, 221); /* this is a light blue */
+}
+
 /*
 Add transition to containers so they can push in and out.
 */
