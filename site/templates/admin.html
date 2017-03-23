@@ -48,9 +48,12 @@
                     <h2 class="content-subhead">Lista de Iglesias</h2>
 
                     {{range .Churches}}
-                    <form id="form-{{.Handle}}" name="form" class="pure-form pure-form-stacked" action="/admin/church/update/{{.Handle}}" method="post">
+                    <div class="pure-g">
+                        <a href="#form-{{.Handle}}" class="pure-button pure-button-primary pure-input-1 pure-u-1 collapser">{{.Name}}</a>
+                    </div>
+                    <form id="form-{{.Handle}}" name="form" class="pure-form pure-form-stacked collapsed" action="/admin/church/update/{{.Handle}}" method="post">
                         <fieldset>
-                            <legend>{{.Name}}</legend>
+                            <!--<legend>{{.Name}}</legend>-->
 
                             <label for="name-{{.Handle}}">Nombre</label>
                             <input class="pure-input-1" id="name-{{.Handle}}" name="name" type="text" value="{{.Name}}">
@@ -69,8 +72,8 @@
                                 Iglesia por defecto (¡Sólo puede haber una!)
                             </label>
 
-                            <button type="submit" class="pure-input-1-4 pure-button pure-button-primary">Guardar</button>
-                            <a class="pure-input-1-4 pure-button pure-button-primary" href="/admin/church/delete/{{.Handle}}">Delete</a>
+                            <button type="submit" class="pure-input-1-4 pure-button button-success">Guardar</button>
+                            <a class="pure-input-1-4 pure-button button-error" href="/admin/church/delete/{{.Handle}}">Delete</a>
                         </fieldset>
                     </form>
                     {{end}}
@@ -98,7 +101,7 @@
                                 Iglesia por defecto (¡Sólo puede haber una!)
                             </label>
 
-                            <button type="submit" class="pure-button pure-button-primary">Guardar</button>
+                            <button type="submit" class="pure-button button-success">Guardar</button>
                         </fieldset>
                     </form>
                     <!--<div class="pure-g">-->
