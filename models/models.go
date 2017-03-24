@@ -1,6 +1,7 @@
 package models
 
 import (
+    "gopkg.in/mgo.v2/bson"
     "errors"
     "fmt"
     "reflect"
@@ -9,14 +10,71 @@ import (
     "net/url"
 )
 
-type Model struct {
-    Name string
+type Model interface {
+    class() string
+    getKey() string
+    getValue() interface{}
+    validate() error
 }
 
-func GetModels() []*Model {
-    return []*Model{
-        &Model{"Iglesias"},
+func ListAll() []string {
+    return []string{
+        "Iglesias",
     }
+}
+
+func Create(m Model, form url.Values) error {
+    err := LoadModel(m, form)
+    if err != nil {
+        return err
+    }
+    dupe := Grab(m, m.getValue())
+    if dupe == nil {
+        return fmt.Errorf("Cannot add: key ", m.getValue(), " exists")
+    } else {
+        LoadModel(m, form)
+    }
+    err = m.validate()
+    if err != nil {
+        return err
+    }
+    return TheDB.InsertInto(m.class(), m)
+}
+
+func Update(m Model, form url.Values, key_value interface{}) error {
+    err := LoadModel(m, form)
+    if err != nil {
+        return err
+    }
+    if reflect.ValueOf(key_value) != reflect.ValueOf(m.getValue()) {
+        dupe := Grab(m, m.getValue())
+        if dupe == nil {
+            return fmt.Errorf("Cannot update: key ", m.getValue(), " exists")
+        } else {
+            LoadModel(m, form)
+        }
+    }
+    err = m.validate()
+    if err != nil {
+        return err
+    }
+    return TheDB.Update(m.class(), bson.M{m.getKey(): key_value}, m)
+}
+
+func Grab(m Model, key_value interface{}) error {
+    return TheDB.GetFrom(m.class(), bson.M{m.getKey(): key_value}, m)
+}
+
+func GrabSpecific(m Model, query bson.M) error {
+    return TheDB.GetFrom(m.class(), query, m)
+}
+
+func GrabAll(m Model, results interface{}) error {
+    return TheDB.GetAll(m.class(), results)
+}
+
+func Delete(m Model, key_value interface{}) error {
+    return TheDB.DeleteFrom(m.class(), bson.M{m.getKey(): key_value})
 }
 
 func SetField(obj interface{}, name string, value string) error {

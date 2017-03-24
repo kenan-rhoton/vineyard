@@ -11,7 +11,7 @@
             <ul class="pure-menu-list">
                 {{ $curr := .CurrentModel}}
                 {{range .Models}}
-                    <li class="pure-menu-item{{if eq $curr .Name}} pure-menu-selected{{end}}"><a href="#" class="pure-menu-link">{{.Name}}</a></li>
+                    <li class="pure-menu-item{{if eq $curr .}} pure-menu-selected{{end}}"><a href="#" class="pure-menu-link">{{.}}</a></li>
                 {{end}}
             </ul>
         </div>
