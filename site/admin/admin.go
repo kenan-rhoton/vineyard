@@ -8,7 +8,7 @@ import (
 )
 
 var adminTemplate = template.Must(template.ParseGlob("site/templates/admin/*.html"))
-var lastString = regexp.MustCompile("^/[a-z/]*/([a-zA-Z0-9]+)$")
+var lastString = regexp.MustCompile("^/[a-z/]*/([a-zA-Z0-9]*)$")
 
 func adminHandler(w http.ResponseWriter, r *http.Request) {
     var c []models.Church
@@ -33,5 +33,6 @@ func adminHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func Setup() {
+    ChurchSetup()
     http.HandleFunc("/admin/", adminHandler)
 }
