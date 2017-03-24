@@ -6,8 +6,6 @@ import(
 )
 
 func main() {
-    site.AdminSetup()
-    site.ResourcesSetup()
-    site.LandingSetup()
+    site.Setup()
     http.ListenAndServe(":8080", nil)
 }

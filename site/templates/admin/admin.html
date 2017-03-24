@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Panel de Administración</title>
+
+        <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css">
+        <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css">
+        <link rel="stylesheet" href="/public/css/layouts/admin-menu.css">
+    </head>
+
+    <body>
+        <!--
+            Your HTML goes here. Visit purecss.io/layouts/ for some sample HTML code.
+        -->
+        <div id="layout">
+            {{template "side_menu" .}}
+
+            <div id="main">
+                <div class="header">
+                    <h1>Panel de Administración</h1>
+                    <h2>Iglesias</h2>
+                </div>
+
+                <div class="content">
+                    <h2 class="content-subhead">Lista de Iglesias</h2>
+
+                    {{range .Churches}}
+                        {{template "church_form" .}}
+                    {{end}}
+
+                    {{template "church_form"}}
+                    <!--<div class="pure-g">-->
+                        <!--<div class="pure-u-3-4">-->
+
+                        <!--</div>-->
+                        <!--<div class="pure-u-1-4">-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                </div>
+            </div>
+        </div>
+        <script src="/public/js/ui.js"></script>
+    </body>
+</html>
+

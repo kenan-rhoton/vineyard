@@ -14,14 +14,8 @@ type Church struct {
     Default bool
 }
 
-var TheDB, _ = InitDB("mongo")
-
-func NewChurch() *Church {
-    return &Church{Name: "", Address: "", Mission: "", Default: false}
-}
-
 func GetDefaultChurch() *Church {
-    c := NewChurch()
+    c := &Church{}
     TheDB.GetFrom("Churches", bson.M{"default": true}, c)
     return c
 }
@@ -40,7 +34,7 @@ func SaveChurch(form url.Values, _ string) error {
 }
 
 func UpdateChurch(form url.Values, which string) error {
-    c := NewChurch()
+    c := &Church{}
     LoadModel(c, form)
     return c.Update(which)
 }
@@ -61,9 +55,9 @@ func (c *Church) Update(handle string) error {
     return TheDB.Update("Churches", bson.M{"handle": handle}, c)
 }
 
-func GetChurch(name string) *Church {
-    c := NewChurch()
-    TheDB.GetFrom("Churches", bson.M{"name": name}, c)
+func GetChurch(handle string) *Church {
+    c := &Church{}
+    TheDB.GetFrom("Churches", bson.M{"handle": handle}, c)
     return c
 }
 
@@ -80,4 +74,3 @@ func DeleteChurch(handle string) error {
 func (c *Church) Delete() {
     TheDB.DeleteFrom("Churches", bson.M{"handle": c.Handle})
 }
-

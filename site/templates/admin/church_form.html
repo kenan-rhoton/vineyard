@@ -1,0 +1,65 @@
+{{define "church_form"}}
+    <div class="pure-g">
+        {{if .}}
+            <a href="#form-{{.Handle}}" class="pure-button pure-button-primary pure-input-1 pure-u-1 collapser">{{.Name}}</a>
+        {{else}}
+            <a href="#form-new" class="pure-button pure-button-primary pure-input-1 pure-u-1 collapser">Nueva Iglesia</a>
+        {{end}}
+    </div>
+    {{if .}}
+        <form id="form-{{.Handle}}" name="form" class="pure-form pure-form-stacked collapsed" action="/admin/church/update/{{.Handle}}" method="post">
+    {{else}}
+        <form id="form-new" name="form" class="pure-form pure-form-stacked collapsed" action="/admin/church/new/" method="post">
+    {{end}}
+            <fieldset>
+                {{if .}}
+                    <label for="name-{{.Handle}}">Nombre</label>
+                    <input class="pure-input-1" id="name-{{.Handle}}" name="name" type="text" value="{{.Name}}">
+                {{else}}
+                    <label for="name-new">Nombre</label>
+                    <input class="pure-input-1" id="name-new" name="name" type="text" placeholder="Nueva Iglesia">
+                {{end}}
+
+                {{if .}}
+                    <label for="handle-{{.Handle}}">Etiqueta</label>
+                    <input class="pure-input-1" id="handle-{{.Handle}}" name="handle" type="text" value="{{.Handle}}">
+                {{else}}
+                    <label for="handle-new">Etiqueta</label>
+                    <input class="pure-input-1" id="handle-new" name="handle" type="text" placeholder="nuevaiglesia">
+                {{end}}
+
+                {{if .}}
+                    <label for="address-{{.Handle}}">Dirección</label>
+                    <input class="pure-input-1" id="address-{{.Handle}}" name="address" type="text" value="{{.Address}}">
+                {{else}}
+                    <label for="address-new">Dirección</label>
+                    <input class="pure-input-1" id="address-new" name="address" type="text" placeholder="Calle Nombre, 123, Ciudad">
+                {{end}}
+
+                {{if .}}
+                    <label for="mission-{{.Handle}}">Declaración de Misión</label>
+                    <input class="pure-input-1" id="mission-{{.Handle}}" name="mission" type="text" value="{{.Mission}}">
+                {{else}}
+                    <label for="mission-new">Declaración de Misión</label>
+                    <input class="pure-input-1" id="mission-new" name="mission" type="text" placeholder="Amar a Dios =)">
+                {{end}}
+
+                {{if .}}
+                    <label for="default-{{.Handle}}" class="pure-checkbox">
+                        <input id="default-{{.Handle}}" name="default" type="checkbox" value="true" {{if .Default}}checked{{end}}>
+                        Iglesia por defecto (¡Sólo puede haber una!)
+                    </label>
+                {{else}}
+                    <label for="default-new" class="pure-checkbox">
+                        <input id="default-new" name="default" type="checkbox" value="true">
+                        Iglesia por defecto (¡Sólo puede haber una!)
+                    </label>
+                {{end}}
+
+                <button type="submit" class="pure-input-1-4 pure-button button-success">Guardar</button>
+                {{if .}}
+                    <a class="pure-input-1-4 pure-button button-error" href="/admin/church/delete/{{.Handle}}">Delete</a>
+                {{end}}
+            </fieldset>
+    </form>
+{{end}}

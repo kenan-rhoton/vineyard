@@ -10,17 +10,12 @@ import (
 )
 
 type Model struct {
-    Current bool
     Name string
-}
-
-func NewModel(curr bool, name string) *Model {
-    return &Model{Current: curr, Name: name}
 }
 
 func GetModels() []*Model {
     return []*Model{
-        NewModel(true, "Iglesias"),
+        &Model{"Iglesias"},
     }
 }
 
@@ -68,4 +63,3 @@ func LoadModel(target interface{}, source url.Values) error {
     }
     return nil
 }
-

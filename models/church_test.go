@@ -11,7 +11,7 @@ func TestChurchName(t *testing.T) {
         "àcéntôs",
         "e s p a c i o s",
     }
-    c := NewChurch()
+    c := &Church{}
 
     for _, v := range testdata {
         c.Name = v
@@ -27,7 +27,7 @@ func TestChurchAddress(t *testing.T) {
         "C/ Abrev. 248",
         "Avda. åÇasdfA^SDFafpqfá fadsmf oqfqm fom fmadkfm , 8749 2,4234",
     }
-    c := NewChurch()
+    c := &Church{}
 
     for _, v := range testdata {
         c.Address = v
@@ -43,7 +43,7 @@ func TestChurchAddress(t *testing.T) {
         //[]string{"30-04-2016", "Casal de Joves"},
         //[]string{"12-08-2030", "BATMANAAAAANANANANANANANNNAN NANANAANNAAN NAN"},
     //}
-    //c := NewChurch()
+    //c := &Church{}
 
     //for _, v := range testdata {
         //c.AddEvent(v[0], v[1])
@@ -59,7 +59,7 @@ func TestChurchMission(t *testing.T) {
         "C/ Abrev. 248",
         "Avda. åÇasdfA^SDFafpqfá fadsmf oqfqm fom fmadkfm , 8749 2,4234",
     }
-    c := NewChurch()
+    c := &Church{}
 
     for _, v := range testdata {
         c.Mission = v

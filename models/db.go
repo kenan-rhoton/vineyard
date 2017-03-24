@@ -9,6 +9,8 @@ type DB struct {
     conn *mgo.Session
 }
 
+var TheDB, _ = InitDB("mongo")
+
 func InitDB(addr string) (*DB, error) {
     db, err := mgo.Dial(addr)
     if err != nil {
