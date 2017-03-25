@@ -23,11 +23,7 @@ func ListAll() []string {
     }
 }
 
-func Create(m Model, form url.Values) error {
-    err := LoadModel(m, form)
-    if err != nil {
-        return err
-    }
+func Insert(m Model) error {
     dupe := Grab(m, m.getValue())
     if dupe == nil {
         return fmt.Errorf("Cannot add: key ", m.getValue(), " exists")
@@ -39,6 +35,14 @@ func Create(m Model, form url.Values) error {
         return err
     }
     return TheDB.InsertInto(m.class(), m)
+}
+
+func Create(m Model, form url.Values) error {
+    err := LoadModel(m, form)
+    if err != nil {
+        return err
+    }
+    return Insert(m)
 }
 
 func Update(m Model, form url.Values, key_value interface{}) error {

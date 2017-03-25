@@ -3,13 +3,33 @@ package models
 import (
     "golang.org/x/crypto/bcrypt"
     "fmt"
+    "time"
 )
 
 type User struct {
     Login string
     Name string
+    Email string
     PasswordHash string
     IsDisabled bool
+}
+
+func Login(user string, pass string) (string, error) {
+    u := &User{}
+    err := Grab(u,user)
+    if err != nil {
+        return nil, err
+    }
+    s := &UserSession{User: user, LastLogin: time.Now()}
+    err = s.GenerateKey()
+    if err != nil {
+        return nil, err
+    }
+    err = Insert(s)
+    if err != nil {
+        return nil, err
+    }
+    return s.SessionKey, nil
 }
 
 func (u *User) HashPassword() error {
