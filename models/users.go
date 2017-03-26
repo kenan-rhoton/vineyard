@@ -18,16 +18,16 @@ func Login(user string, pass string) (string, error) {
     u := &User{}
     err := Grab(u,user)
     if err != nil {
-        return nil, err
+        return "", err
     }
     s := &UserSession{User: user, LastLogin: time.Now()}
     err = s.GenerateKey()
     if err != nil {
-        return nil, err
+        return "", err
     }
     err = Insert(s)
     if err != nil {
-        return nil, err
+        return "", err
     }
     return s.SessionKey, nil
 }

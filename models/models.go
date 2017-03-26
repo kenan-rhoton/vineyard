@@ -27,10 +27,8 @@ func Insert(m Model) error {
     dupe := Grab(m, m.getValue())
     if dupe == nil {
         return fmt.Errorf("Cannot add: key ", m.getValue(), " exists")
-    } else {
-        LoadModel(m, form)
     }
-    err = m.validate()
+    err := m.validate()
     if err != nil {
         return err
     }

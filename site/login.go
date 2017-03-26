@@ -7,7 +7,7 @@ import (
 )
 
 var loginTemplate = template.Must(template.ParseFiles("site/templates/login.html"))
-var loginTemplate = template.Must(template.ParseFiles("site/templates/signup.html"))
+var signupTemplate = template.Must(template.ParseFiles("site/templates/signup.html"))
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
     if r.Method == "POST" {
@@ -17,7 +17,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
         if err != nil {
             http.Error(w, err.Error(), http.StatusInternalServerError)
         }
-        c := http.Cookie{Name: "SessionKey", Value: key}
+        c := &http.Cookie{Name: "SessionKey", Value: key}
         http.SetCookie(w, c)
         http.Redirect(w, r, "/admin/", http.StatusFound)
     } else if r.Method == "GET" {
@@ -33,7 +33,7 @@ func signupHandler(w http.ResponseWriter, r *http.Request) {
     if r.Method == "POST" {
         //Someone is creating a user
         r.ParseForm()
-        err := models.Create(&models.User{}, r.Form, "")
+        err := models.Create(&models.User{}, r.Form)
         if err != nil {
             http.Error(w, err.Error(), http.StatusInternalServerError)
         }
