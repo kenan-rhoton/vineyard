@@ -1,0 +1,13 @@
+.vcontainer {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed !important;
+}
+.vcentered {
+    position: relative;
+    top: 50%;
+    transform: perspective(1px) translateY(-55%);
+}

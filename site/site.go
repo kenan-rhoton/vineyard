@@ -8,4 +8,5 @@ func Setup() {
     admin.Setup()
     ResourcesSetup()
     LandingSetup()
+    LoginSetup()
 }

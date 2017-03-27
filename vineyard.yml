@@ -1,14 +1,5 @@
-admin_page:
-    - !admin page design
-    - !db_access
-    - !save/load church
-    - !render page with database values
-    - !allow editing database values
-    - !improve aesthetics (collapsible churches)
-    - !refactor lots of code
-    - ?make extendable
 users:
-    - user database model
+    - !user database model
     - create login page
     - create logout button
     - permissions
